@@ -42,8 +42,7 @@ As modern AI systems increasingly require robust and scalable deployment, this r
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/fastapi-ml-api.git
-cd fastapi-ml-api
+git clone https://github.com/MDalamin5/FastAPI-for-Machine-Learning-and-Ai.git
 ```
 
 ### 2. Create and Activate Virtual Environment
