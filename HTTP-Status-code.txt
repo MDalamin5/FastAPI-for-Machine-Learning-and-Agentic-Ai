@@ -1,0 +1,20 @@
+2xx --- Success
+3xx --- Redirection |Further action need to be taken
+4xx --- Clint error | Something wrong with the request from the Clint
+5xx -- Server error | Something went wrong on the server side
+
+## Some the status code
+
+200 ---- OK | a get and post Success
+201 -- Resource created | at a post that create Something
+204 -- No Content | Success but no data return
+
+
+400 --- Bad request
+401 -- Unauthorized
+403 -- Forbidden | Logged in but not allowed
+404 -- Resource does not exists
+
+500 Internal server error
+502 Bad gateway
+503 Service Unavailable | server is down
