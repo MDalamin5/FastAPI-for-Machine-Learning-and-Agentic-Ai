@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from schema.user_input import UserInput
 from model.predict import predict_output, MODEL_VERSION, model
+from schema.prediction_response import PredictionResponse
 
 app = FastAPI()
 
@@ -21,8 +22,8 @@ def health_check():
         "model_loaded": model is not None
     }
 
-@app.post('/predict')
-def predict_premium(data: UserInput):
+@app.post('/predict', response_model=PredictionResponse)
+def predict_premium(data: UserInput, ):
 
     input_df = {
         'bmi': data.bmi,
@@ -36,7 +37,7 @@ def predict_premium(data: UserInput):
     try:
         prediction = predict_output(input_df)
 
-        return JSONResponse(status_code=200, content={'predicted_category': prediction})
+        return JSONResponse(status_code=200, content={'response': prediction})
     except Exception as e:
         return JSONResponse(status_code=500, content=str(e))
 
