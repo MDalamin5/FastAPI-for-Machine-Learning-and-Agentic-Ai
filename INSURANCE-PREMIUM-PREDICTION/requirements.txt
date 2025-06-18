@@ -49,7 +49,6 @@ pydeck==0.9.1
 Pygments==2.19.1
 python-dateutil==2.9.0.post0
 pytz==2025.2
-pywin32==310
 pyzmq==26.4.0
 referencing==0.36.2
 rpds-py==0.25.1
@@ -72,3 +71,5 @@ urllib3==2.4.0
 uvicorn==0.34.2
 watchdog==6.0.0
 wcwidth==0.2.13
+altair==5.5.0
+annotated-types==0.7.0
