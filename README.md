@@ -42,7 +42,7 @@ As modern AI systems increasingly require robust and scalable deployment, this r
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/MDalamin5/FastAPI-for-Machine-Learning-and-Ai.git
+git https://github.com/MDalamin5/FastAPI-for-Machine-Learning-and-Agentic-Ai.git
 ```
 
 ### 2. Create and Activate Virtual Environment
