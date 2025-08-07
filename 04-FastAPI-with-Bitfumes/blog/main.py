@@ -1,9 +1,8 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
-from typing import Literal, Optional
+from scheas import Blog
 
 app = FastAPI(
-    title="hil-bil blog api",
+    title="Eil-Pil blog api",
     description="This API mainly design for CRUD Operations"
 )
 
@@ -11,4 +10,16 @@ app = FastAPI(
 def home():
     return {
         "messages": "Welcome to eil-pil Blog."
+    }
+    
+
+@app.post("/blog")
+def create(request: Blog):
+    print(request.title)
+    
+    return {
+        "blog_post": {
+            "title": request.title,
+            "body": request.body
+        }
     }
