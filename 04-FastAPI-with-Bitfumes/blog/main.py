@@ -1,7 +1,8 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from  scheas import Blog
-from database import engine
+from database import engine, SessionLocal
 import scheas, models
+from sqlalchemy.orm import Session
 
 app = FastAPI(
     title="Eil-Pil blog api",
@@ -16,15 +17,20 @@ def home():
     return {
         "messages": "Welcome to eil-pil Blog."
     }
-    
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    except Exception as e:
+        print(e)
+    finally:
+        db.close()
 
 @app.post("/blog")
-def create(request: Blog):
-    print(request.title)
-    
-    return {
-        "blog_post": {
-            "title": request.title,
-            "body": request.body
-        }
-    }
+def create(request: Blog, db: Session = Depends(get_db)):
+    new_blog = models.Blog(title=request.title, body=request.body)
+    db.add(new_blog)
+    db.commit()
+    db.refresh(new_blog)
+    return new_blog
