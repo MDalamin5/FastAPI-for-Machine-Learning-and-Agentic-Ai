@@ -1,10 +1,15 @@
 from fastapi import FastAPI
-from scheas import Blog
+from  scheas import Blog
+from database import engine
+import scheas, models
 
 app = FastAPI(
     title="Eil-Pil blog api",
     description="This API mainly design for CRUD Operations"
 )
+
+models.Base.metadata.create_all(engine)
+
 
 @app.get("/")
 def home():
