@@ -10,7 +10,7 @@ app = FastAPI(
 ________________________________________
 All About Get Method                    |
 get Operation is use for Retrieve Data  |
------------------------------------------
+________________________________________
 """
 
 @app.get("/")
@@ -26,7 +26,7 @@ def home():
 """
 _________________________
 | Complex path parameter |
--------------------------
+_________________________
 """
 
 @app.get("/blog")
@@ -80,4 +80,19 @@ def comments(id, limit=10):
 def about():
     return {
         "about page": "list of content about GTR"
+    }
+    
+    
+"""
+____________________________________________
+All About POST Method                       |
+POST Operation is use for Create Something  |
+____________________________________________
+"""
+
+@app.post("/blog")
+def create_blog():
+    print("Blog Is created.")
+    return {
+        "data": "Blog is created successfully"
     }
