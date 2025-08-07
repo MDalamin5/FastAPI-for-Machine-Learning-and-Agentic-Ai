@@ -1,5 +1,7 @@
 from fastapi import FastAPI
-from typing import Optional
+from typing import Optional, Annotated
+from pydantic import BaseModel, Field
+
 
 app = FastAPI(
     title="Practice FastAPI",
@@ -28,6 +30,7 @@ _________________________
 | Complex path parameter |
 _________________________
 """
+
 
 @app.get("/blog")
 def index(limit: int=10, published: bool=True, sort: Optional[str]=None):
@@ -90,9 +93,15 @@ POST Operation is use for Create Something  |
 ____________________________________________
 """
 
+class Blog(BaseModel):
+    "This model is responsible for to crate a new blog"
+    title: str
+    body: str
+    publish_at: Annotated[Optional[bool], Field(description="When its published", default=False)]
+
 @app.post("/blog")
-def create_blog():
+def create_blog(blog: Blog):
     print("Blog Is created.")
     return {
-        "data": "Blog is created successfully"
+        "data": f"Blog is created with title as {blog.title}"
     }
