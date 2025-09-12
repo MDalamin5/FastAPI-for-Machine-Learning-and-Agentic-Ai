@@ -30,9 +30,9 @@ class BookService():
 
         new_book = Book(**book_data_dict)
 
-        # new_book.published_date = datetime.strptime(
-        #     book_data_dict["published_date"], "%Y-%m-%d"
-        # )
+        new_book.publish_date = datetime.strptime(
+            book_data_dict["publish_date"], "%Y-%m-%d"
+        )
 
         # new_book.user_uid = user_uid
 

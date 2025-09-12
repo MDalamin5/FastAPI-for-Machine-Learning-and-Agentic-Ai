@@ -1,4 +1,4 @@
-from .schemas import Book, UpdateBook, BookCreateModel
+from .schemas import UpdateBook, BookSchema
 from typing import List
 from fastapi import status, Depends
 from fastapi.exceptions import HTTPException
@@ -6,6 +6,7 @@ from fastapi import APIRouter, status
 from src.db.main import get_session
 from sqlmodel.ext.asyncio.session import AsyncSession
 from src.books.service import BookService
+from src.books.models import Book
 
 book_router = APIRouter()  # its can access all HTTP method as GET, POST, DELETE, PATCH
 book_service = BookService()
@@ -25,15 +26,16 @@ async def get_all_books(session: AsyncSession = Depends(get_session)) -> list:
 
 
 # ----> Create <----
-@book_router.post("/add_book", status_code=status.HTTP_201_CREATED, response_model=Book)
-async def create_a_book(request: BookCreateModel, session: AsyncSession = Depends(get_session)) -> dict:
-    new_book = await book_service.create_book(request, session)
+@book_router.post("/", status_code=status.HTTP_201_CREATED, response_model=Book)
+async def create_a_book(book_data: Book, session: AsyncSession = Depends(get_session)) -> dict:
+    new_book = await book_service.create_book(book_data, session)
 
     return new_book
 
 ## ---> Search By ID <----
-@book_router.get("/book/{book_uid}")
+@book_router.get("/{book_uid}", response_model=BookSchema)
 async def get_book(book_uid: str, session: AsyncSession = Depends(get_session)) -> dict:
+    print("im hare--->")
     book = await book_service.get_book(book_uid, session)
 
     if book:
@@ -74,3 +76,9 @@ async def get_book(book_uid: int, session: AsyncSession = Depends(get_session)):
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Book Not Found."
         )
+    
+
+
+
+
+# ----> is book id is int <-----
