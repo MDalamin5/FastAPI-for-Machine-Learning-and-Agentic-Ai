@@ -1,4 +1,4 @@
-from .schemas import Book, UpdateBook
+from .schemas import Book, UpdateBook, BookCreateModel
 from typing import List
 from fastapi import status, Depends
 from fastapi.exceptions import HTTPException
@@ -25,14 +25,14 @@ async def get_all_books(session: AsyncSession = Depends(get_session)) -> list:
 
 
 # ----> Create <----
-@book_router.post("/", status_code=status.HTTP_201_CREATED, response_model=Book)
-async def create_a_book(request: Book, session: AsyncSession = Depends(get_session)) -> dict:
+@book_router.post("/add_book", status_code=status.HTTP_201_CREATED, response_model=Book)
+async def create_a_book(request: BookCreateModel, session: AsyncSession = Depends(get_session)) -> dict:
     new_book = await book_service.create_book(request, session)
 
     return new_book
 
 ## ---> Search By ID <----
-@book_router.get("/{book_uid}")
+@book_router.get("/book/{book_uid}")
 async def get_book(book_uid: str, session: AsyncSession = Depends(get_session)) -> dict:
     book = await book_service.get_book(book_uid, session)
 

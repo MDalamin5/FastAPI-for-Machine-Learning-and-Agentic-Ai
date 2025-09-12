@@ -14,15 +14,13 @@ class Book(BaseModel):
     created_at: datetime
     update_at: datetime
 
-from pydantic import BaseModel
-from datetime import date
 
 
 class BookCreateModel(BaseModel):
     title: str
     author: str
     publisher: str
-    publish_date: date   # use date type for consistency
+    publish_date: str   # use date type for consistency
     page_count: int
     language: str
 

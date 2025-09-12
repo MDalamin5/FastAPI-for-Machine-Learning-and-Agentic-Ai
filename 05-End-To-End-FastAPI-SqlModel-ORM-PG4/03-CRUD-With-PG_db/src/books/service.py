@@ -1,11 +1,16 @@
-from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.ext.asyncio.session import AsyncSession
 from sqlalchemy import select, desc
 from src.books.models import Book
 from src.books.schemas import UpdateBook, BookCreateModel
+from datetime import datetime
 
 class BookService():
     async def get_all_book(self, session: AsyncSession):
         stmt = select(Book).order_by(desc(Book.created_at))
+
+        ## ----> Source of the Lesion its not working... <-----
+        # result = await session.exec(stmt)
+        # return result.all()
         result = await session.execute(stmt)
         return result.scalars().all()
 
@@ -13,12 +18,29 @@ class BookService():
         stmt = select(Book).where(Book.uid == book_uid)
         result = await session.execute(stmt)
         return result.scalars().first()
+        # result = await session.execute(stmt)
+        # for hero in result:
+        #     print(hero)
+        #     return hero
 
-    async def create_book(self, book_data: BookCreateModel, session: AsyncSession):
-        new_book = Book(**book_data.model_dump())
+    async def create_book(
+        self, book_data: BookCreateModel, session: AsyncSession
+    ):
+        book_data_dict = book_data.model_dump()
+
+        new_book = Book(**book_data_dict)
+
+        # new_book.published_date = datetime.strptime(
+        #     book_data_dict["published_date"], "%Y-%m-%d"
+        # )
+
+        # new_book.user_uid = user_uid
+
         session.add(new_book)
+
         await session.commit()
-        await session.refresh(new_book)  # refresh to get DB-generated values
+        # await session.close()
+
         return new_book
 
     async def update_book(self, book_uid: str, update_data: UpdateBook, session: AsyncSession):
