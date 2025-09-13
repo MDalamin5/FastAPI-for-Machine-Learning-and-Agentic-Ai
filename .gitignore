@@ -173,3 +173,5 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 myenv
+05-End-To-End-FastAPI-SqlModel-ORM-PG4/03-CRUD-With-PG_db/migrations
+05-End-To-End-FastAPI-SqlModel-ORM-PG4/03-CRUD-With-PG_db/alembic.ini
