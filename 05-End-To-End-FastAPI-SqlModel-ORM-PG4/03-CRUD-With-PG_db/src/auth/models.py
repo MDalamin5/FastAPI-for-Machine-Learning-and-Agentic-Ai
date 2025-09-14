@@ -35,6 +35,7 @@ class User(SQLModel, table=True):
     first_name: str
     last_name: str
     is_verified: bool = Field(default=False)
+    password_hash: str = Field(exclude=True) # its serializing time its not showing this password
     created_at: datetime = Field(
         sa_column=Column(pg.TIMESTAMP, default=datetime.now)
     )
