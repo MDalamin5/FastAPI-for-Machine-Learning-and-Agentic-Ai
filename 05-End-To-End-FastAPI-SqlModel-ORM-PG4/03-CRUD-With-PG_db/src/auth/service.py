@@ -1,15 +1,16 @@
 from .models import User
 from sqlmodel.ext.asyncio.session import AsyncSession
 from sqlmodel import select
-from schemas import UserCreateModel
+from .schemas import UserCreateModel
 from .utils import generate_password_hash, verify_password
 
 class UserService:
     async def get_user_by_email(self, email: str, session: AsyncSession):
         stmt = select(User).where(User.email == email)
 
-        result = await session.exec(stmt)
-        user = result.first()
+        result = await session.execute(stmt)
+        user = result.scalar_one_or_none()  # better than .first()
+        print(user)
 
         return user
     
@@ -27,5 +28,6 @@ class UserService:
 
         new_user.password_hash = generate_password_hash(user_data_dict["password"])
         session.add(new_user)
-        session.commit()
-        session.close()
+        await session.commit()
+        
+        return new_user
