@@ -22,3 +22,9 @@ class UserModel(BaseModel):
     password_hash: str = Field(exclude=True) # its serializing time its not showing this password
     created_at: datetime 
     update_at: datetime 
+
+
+class UserLogin(BaseModel):
+    email: str = Field(max_length=40)
+    password: str = Field(min_length=6)
+    

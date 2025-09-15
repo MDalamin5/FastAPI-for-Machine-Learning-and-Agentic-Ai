@@ -75,3 +75,4 @@ watchdog==6.0.0
 wcwidth==0.2.13
 alembic
 passlib
+pyjwt
