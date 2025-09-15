@@ -8,14 +8,21 @@ from fastapi.exceptions import HTTPException
 from .utils import create_access_token, decode_token, verify_password
 from datetime import timedelta
 from fastapi.responses import JSONResponse
+from src.auth.dependencies import AccessTokenBearer
 
 auth_router = APIRouter()
 user_service = UserService()
+access_token_bearer = AccessTokenBearer()
 
 REFRESH_TOKEN_EXPIRY = 2
 
+# Bearer Token
+
 @auth_router.post("/signup", response_model=UserModel, status_code=status.HTTP_201_CREATED)
-async def create_user_account(user_data: UserCreateModel, session: AsyncSession = Depends(get_session)):
+async def create_user_account(user_data: UserCreateModel, 
+                              session: AsyncSession = Depends(get_session)
+                              
+                              ):
     email = user_data.email
     print(email)
 
