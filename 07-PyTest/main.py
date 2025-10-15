@@ -1,5 +1,5 @@
 def get_weather(temp: int) -> str:
-    if temp > 20:
-        return "cold"
-    else:
+    if temp > 30:
         return "hot"
+    else:
+        return "cold"
