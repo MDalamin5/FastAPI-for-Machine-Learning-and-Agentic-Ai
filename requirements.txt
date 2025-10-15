@@ -76,3 +76,5 @@ wcwidth==0.2.13
 alembic
 passlib
 pyjwt
+pytest
+pytest-mock
