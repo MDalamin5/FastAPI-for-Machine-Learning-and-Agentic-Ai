@@ -13,6 +13,7 @@ class Company(SQLModel, table=True):
 class User(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     username: str = Field(index=True, nullable=False, unique=True)
+    full_name: str = Field(nullable=True)
     email: str = Field(nullable=False, unique=True)
     is_active: bool = Field(default=True)
 
