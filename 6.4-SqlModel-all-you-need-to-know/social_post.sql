@@ -1,0 +1,49 @@
+CREATE TABLE users (
+  id BIGSERIAL PRIMARY KEY,
+  username VARCHAR(50) NOT NULL UNIQUE,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  hashed_password TEXT NOT NULL,
+  is_active BOOLEAN NOT NULL DEFAULT TRUE,
+  signup_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE TABLE profiles (
+  id BIGSERIAL PRIMARY KEY,
+  user_id BIGINT NOT NULL UNIQUE REFERENCES users(id) ON DELETE CASCADE,
+  display_name VARCHAR(100),
+  bio TEXT,
+  avatar VARCHAR(512),
+  settings JSONB,
+  updated_at TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE TABLE posts (
+  id BIGSERIAL PRIMARY KEY,
+  author_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  title VARCHAR(255) NOT NULL,
+  slug VARCHAR(255) NOT NULL UNIQUE,
+  content TEXT NOT NULL,
+  metadata JSONB,
+  published BOOLEAN NOT NULL DEFAULT FALSE,
+  published_at TIMESTAMPTZ,
+  views INTEGER NOT NULL DEFAULT 0,
+  rating NUMERIC(3,2),
+  created_at TIMESTAMPTZ DEFAULT now(),
+  updated_at TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE TABLE tags (
+  id BIGSERIAL PRIMARY KEY,
+  name VARCHAR(50) NOT NULL UNIQUE,
+  slug VARCHAR(50) NOT NULL UNIQUE,
+  description TEXT,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+
+CREATE TABLE post_tags (
+  post_id BIGINT NOT NULL REFERENCES posts(id) ON DELETE CASCADE,
+  tag_id  BIGINT NOT NULL REFERENCES tags(id) ON DELETE CASCADE,
+  added_by BIGINT REFERENCES users(id),
+  added_at TIMESTAMPTZ DEFAULT now(),
+  PRIMARY KEY (post_id, tag_id)
+);
