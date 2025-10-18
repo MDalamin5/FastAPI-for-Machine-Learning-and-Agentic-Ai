@@ -22,19 +22,26 @@ from sqlmodel import select
 #     for u in users[:5]:
 #         print(u.username, "->", len(u.blog_posts))
 
+# >------Inserting Data >--------
 
-from datetime import datetime
-from uuid import UUID
+# from datetime import datetime
+# from uuid import UUID
 
-with get_session() as session:
-    user = session.exec(select(User).where(User.username == "john_doe")).one()
-    new_post = BlogPost(
-        title="ORM Tricks I Use",
-        content="Notes about SQLModel and relationships.",
-        published_at=datetime.utcnow(),
-        author=user  # set object; ORM will set user_id automatically
-    )
-    session.add(new_post)
-    session.commit()
-    session.refresh(new_post)
-    print("Created post id:", new_post.id, "user_id:", new_post.user_id)
+# with get_session() as session:
+#     user = session.exec(select(User).where(User.username == "john_doe")).one()
+#     new_post = BlogPost(
+#         title="ORM Tricks I Use",
+#         content="Notes about SQLModel and relationships.",
+#         published_at=datetime.utcnow(),
+#         author=user  # set object; ORM will set user_id automatically
+#     )
+#     session.add(new_post)
+#     session.commit()
+#     session.refresh(new_post)
+#     print("Created post id:", new_post.id, "user_id:", new_post.user_id)
+
+
+# -----------> Data inserting from JSON file <-----------------
+from data_inseting import insert_user_data
+
+insert_user_data("db_data.json", "Aminul")

@@ -1,0 +1,50 @@
+{
+  "users": [
+    {
+      "username": "Al Amin",
+      "email": "alamin@example.com",
+      "full_name": "Md Al Amin",
+      "profile": {
+        "bio": "CSE student, AI enthusiast and backend developer.",
+        "avatar_url": "https://example.com/avatar/alamin.png"
+      },
+      "blog_posts": [
+        {
+          "title": "Getting Started with SQLModel",
+          "content": "This post explains how to use SQLModel with FastAPI and Alembic.",
+          "published_at": "2025-10-17T10:00:00Z",
+          "tags": ["Python", "FastAPI", "Database"]
+        },
+        {
+          "title": "Understanding ORM Relationships",
+          "content": "Learn how one-to-many and many-to-many relationships work in SQLModel.",
+          "published_at": "2025-10-18T09:30:00Z",
+          "tags": ["SQLModel", "ORM", "Tutorial"]
+        }
+      ]
+    },
+    {
+      "username": "Aminul",
+      "email": "aminul@example.com",
+      "full_name": "Aminul Haque",
+      "profile": {
+        "bio": "Full Stack developer who loves exploring new frameworks.",
+        "avatar_url": "https://example.com/avatar/aminul.png"
+      },
+      "blog_posts": [
+        {
+          "title": "Async FastAPI Tips",
+          "content": "Deep dive into async programming with FastAPI and PostgreSQL.",
+          "published_at": "2025-10-16T14:00:00Z",
+          "tags": ["FastAPI", "Async", "PostgreSQL"]
+        },
+        {
+          "title": "Deploying FastAPI Apps on Ubuntu",
+          "content": "Step-by-step guide to deploy FastAPI apps with Nginx and Gunicorn.",
+          "published_at": "2025-10-17T08:45:00Z",
+          "tags": ["FastAPI", "Deployment", "Linux"]
+        }
+      ]
+    }
+  ]
+}
