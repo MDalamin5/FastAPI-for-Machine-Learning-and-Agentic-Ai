@@ -1,7 +1,8 @@
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlmodel.ext.asyncio.session import AsyncSession
-from sqlmodel import text
+from sqlmodel import text, SQLModel
 from . models import Book
+from sqlalchemy.orm import sessionmaker
 
 from src.config import settings
 
@@ -11,7 +12,25 @@ async_engine = create_async_engine(
 )
 
 async def init_db():
-    async with AsyncSession(async_engine) as session:
-        stmt = text("SELECT 'Hello';")
-        result = await session.exec(stmt)
-        print(result.all())
+    # async with AsyncSession(async_engine) as session:
+        # -----> DB Testing <------
+        # stmt = text("SELECT 'Hello';")
+        # result = await session.exec(stmt)
+        # print(result.all())
+        # -----> DB Test end <-------
+
+    async with async_engine.begin() as conn:
+        from .models import Book
+        await conn.run_sync(SQLModel.metadata.create_all) 
+
+
+async def get_session() -> AsyncSession:
+
+    async_session = sessionmaker(
+        bind=async_engine,
+        class_=AsyncSession,
+        expire_on_commit=False
+    )
+
+    async with async_session() as session:
+        yield session
