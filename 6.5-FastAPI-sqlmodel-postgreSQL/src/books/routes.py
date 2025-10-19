@@ -4,6 +4,7 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 from fastapi import Depends
 from http import HTTPStatus
 import uuid
+from .service import BookService
 
 book_router = APIRouter(
     prefix="/books"
@@ -12,7 +13,9 @@ book_router = APIRouter(
 ## get the books
 @book_router.get("/")
 async def read_books(session: AsyncSession = Depends(get_session)):
-    pass
+    books = BookService(session=session)
+    all_books = books.get_all_books()
+    return all_books
 
 ## post the books
 @book_router.post("/", status_code= HTTPStatus.CREATED)
