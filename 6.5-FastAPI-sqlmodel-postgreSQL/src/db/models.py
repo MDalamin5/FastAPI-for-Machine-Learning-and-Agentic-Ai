@@ -14,8 +14,8 @@ class Book(SQLModel, table=True):
     author: str
     isbn: str
     description: str
-    created_at: datetime = Field(default=datetime.now)
-    updated_at: datetime = Field(default=datetime.now)
+    created_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default=datetime.now))
+    updated_at: datetime = Field(sa_column=Column(pg.TIMESTAMP, default=datetime.now))
 
     def __repr__(self):
         return f"Book Title: {self.title}"
