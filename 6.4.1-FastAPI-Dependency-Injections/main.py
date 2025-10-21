@@ -17,10 +17,19 @@ def provide_inputs(x: int , y: int, z: str):
     }
 
 @app.get("/")
-def home(inputs: Annotated[dict, Depends(provide_inputs)]):
+async def home(inputs: Annotated[dict, Depends(provide_inputs)]):
 
     total = inputs.get("x") + inputs.get("y")
 
     return {
         "messages": f"The total value is: {total}, and name: {inputs.get("zz")}"
+    }
+
+
+@app.get("/testline")
+async def testline(inputs: Annotated[dict, Depends(provide_inputs)]):
+
+    return {
+        "square_x": f"{inputs.get("x") ** 2}",
+        "square_y": f"{inputs.get("y") ** 2}"
     }
