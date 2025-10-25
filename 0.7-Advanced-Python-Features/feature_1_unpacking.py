@@ -36,5 +36,17 @@ print_name("Alamin", "Aminul", "niloy")
 
 # Combing Lists with Unpacking
 list1 = [1, 2, 3]
+list2 = [4, 5, 6, 7]
 
+list3 = list1+list2 # approach 1
+print(list3)
+combined = [*list1, *list2] # its spread out like [1, 2, 3, and 4, 5, ..]
+print(combined)
 
+# Swapping Variables Using Unpacking
+x = 10
+y = 20
+
+print(f"x: {x}, y: {y}")
+x, y = y, x
+print(f"x: {x}, y: {y}")
