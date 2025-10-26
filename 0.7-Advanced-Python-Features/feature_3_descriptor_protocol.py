@@ -7,3 +7,9 @@ class Person:
         """
         __repr__ is meant to 
         """
+
+        return f"Person(name={self.name!r}, age: {self.age})"
+    
+
+    def __repr__(self):
+        return f"{self.name}, age: {self.age}"
