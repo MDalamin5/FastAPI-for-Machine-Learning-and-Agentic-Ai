@@ -12,4 +12,13 @@ class Person:
     
 
     def __repr__(self):
+        """
+        __str__ its presents readable string of the object.
+        """
         return f"{self.name}, age: {self.age}"
+    
+
+    
+person = Person("Md Al Amin", 27)
+print(repr(person))
+print(person)
