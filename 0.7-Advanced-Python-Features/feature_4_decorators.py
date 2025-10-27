@@ -3,9 +3,9 @@
 # --> Debug a Functions
 
 def func(fan):
-    def wrapper():
+    def wrapper(*args, **kwargs):
         print('Started')
-        fan()
+        fan(*args, **kwargs)
         print("End")
     
     return wrapper
@@ -24,8 +24,13 @@ def func3():
 # y()
 
 @func
-def func4():
-    print("i'm hello sir...")
+def func3():
+    print("Hello test line...")
+
+@func
+def func4(p, q, r):
+    print(p)
 
 
-func4()
+func4(5, 4, 2)
+func3()
