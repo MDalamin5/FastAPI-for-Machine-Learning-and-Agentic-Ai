@@ -8,14 +8,16 @@ class User:
 
 
 class Person(User):
-    # Constructor overloading
+    # Constructor overriding...
     def __init__(self, profession):
         super().__init__()
         self.profession = profession
 
 
+    
     # Method overriding...
     def display_info(self):
+        super().display_info()
         print("I'm From Person Class")
 
 
