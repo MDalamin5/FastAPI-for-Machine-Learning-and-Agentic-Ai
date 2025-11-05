@@ -1,7 +1,17 @@
 from fastapi import FastAPI, HTTPException
 from schemas import CreatePostModel
+from app.db import Post, create_async_engine, get_async_session, create_db_and_table
+from contextlib import asynccontextmanager
 
-app = FastAPI()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await create_db_and_table()
+    yield
+
+app = FastAPI(
+    lifespan=lifespan
+)
 
 text_posts = {
     1: {
